@@ -15,6 +15,7 @@ interface EncoderInterface
     /**
      * Encodes input string data and returns the encoded content.
      *
+     * @param $source
      * @return string
      */
     public function encode($source);
