@@ -3,11 +3,12 @@
  * @access protected
  * @author Judzhin Miles <info[woof-woof]msbios.com>
  */
-namespace MSBios\Crypt;
+namespace MSBios\Crypt\Password;
 
 /**
  * Interface ComparatorInterface
- * @package MSBios\Crypt
+ *
+ * @package MSBios\Crypt\Password
  */
 interface ComparatorInterface
 {
@@ -16,5 +17,5 @@ interface ComparatorInterface
      *
      * @return boolean
      */
-    public function compare($encoded, $source);
+    public function compare($encoded, $source): bool;
 }

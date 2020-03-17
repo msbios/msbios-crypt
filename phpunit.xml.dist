@@ -9,7 +9,7 @@
          backupGlobals="false"
          syntaxCheck="true">
 
-    <testsuite name="MSBios Theme tests">
+    <testsuite name="MSBios Crypt tests">
         <directory>./tests</directory>
     </testsuite>
 

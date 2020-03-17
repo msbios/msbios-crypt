@@ -4,11 +4,12 @@
  * @author Judzhin Miles <info[woof-woof]msbios.com>
  */
 
-namespace MSBios\Crypt;
+namespace MSBios\Crypt\Password;
 
 /**
  * Interface DecoderInterface
- * @package MSBios\Crypt
+ *
+ * @package MSBios\Crypt\Password
  */
 interface DecoderInterface
 {
@@ -17,5 +18,5 @@ interface DecoderInterface
      *
      * @return string
      */
-    public function decode($source);
+    public function decode($source) : string;
 }

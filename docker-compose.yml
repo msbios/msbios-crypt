@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+
+  # php-fpm
+  php-fpm:
+    container_name: crypt-php-fpm
+    build:
+      context: .
+      target: dev
+      dockerfile: docker/php-fpm/Dockerfile
+      args:
+        APP_ENV: dev
+    volumes:
+      - .:/var/www/html:rw
+      - ~/.composer:/root/.composer/cache:ro

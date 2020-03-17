@@ -7,9 +7,16 @@ namespace MSBios\Crypt\Exception;
 
 /**
  * Class RuntimeException
+ *
  * @package MSBios\Crypt\Exception
  */
-class RuntimeException extends \RuntimeException
+class RuntimeException extends \MSBios\Exception\RuntimeException
 {
-    // ...
+    /**
+     * @return \Throwable
+     */
+    public static function unknownHashFunction(): \Throwable
+    {
+        return self::create('Unknown hash function!');
+    }
 }

@@ -3,11 +3,12 @@
  * @access protected
  * @author Judzhin Miles <info[woof-woof]msbios.com>
  */
-namespace MSBios\Crypt;
+namespace MSBios\Crypt\Password;
 
 /**
  * Interface EncoderInterface
- * @package MSBios\Crypt
+ *
+ * @package MSBios\Crypt\Password
  */
 interface EncoderInterface
 {

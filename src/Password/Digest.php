@@ -3,18 +3,16 @@
  * @access protected
  * @author Judzhin Miles <judzhin[at]gns-it.com>
  */
-namespace MSBios\Crypt\Digest;
+namespace MSBios\Crypt\Password;
 
-use MSBios\Crypt\ComparatorInterface;
-use MSBios\Crypt\EncoderInterface;
+use Laminas\Math\Rand;
 use MSBios\Crypt\Exception\RuntimeException;
-use Zend\Math\Rand;
 
 /**
- * Class Password
- * @package MSBios\Crypt\Digest
+ * Class Digest
+ * @package MSBios\Crypt\Password
  */
-class Password implements EncoderInterface, ComparatorInterface
+class Digest implements EncoderInterface, ComparatorInterface
 {
     /** @const DELIMITER */
     const DELIMITER = '$';
@@ -42,7 +40,8 @@ class Password implements EncoderInterface, ComparatorInterface
     protected $hashFn;
 
     /**
-     * SaltCrypt constructor.
+     * Digest constructor.
+     *
      * @param string $hashFn
      */
     public function __construct($hashFn = '')
@@ -56,6 +55,7 @@ class Password implements EncoderInterface, ComparatorInterface
      * @param $source
      * @param bool $salt
      * @return string
+     * @throws \Throwable
      */
     public function encode($source, $salt = false)
     {
@@ -68,14 +68,18 @@ class Password implements EncoderInterface, ComparatorInterface
      * @param $encoded
      * @param $source
      * @return bool
+     * @throws \Throwable
      */
-    public function compare($encoded, $source)
+    public function compare($encoded, $source): bool
     {
+        /** @var string $delimiter */
         $delimiter = strpos($encoded, self::DELIMITER);
+
         if ($delimiter !== false) {
             $salt = substr($encoded, 0, $delimiter);
             return $encoded == $this->encodeWithSalt($source, $salt);
         }
+
         return false;
     }
 
@@ -83,9 +87,11 @@ class Password implements EncoderInterface, ComparatorInterface
      * @param $source
      * @param bool $salt
      * @return string
+     * @throws \Throwable
      */
-    protected function encodeWithSalt($source, $salt = false)
+    protected function encodeWithSalt($source, $salt = false): string
     {
+        /** @var string $salt */
         $salt = empty($salt) ? $this->createHash(Rand::getString(self::DEFAULT_SALT_LENGTH)) : $salt;
         return $salt . self::DELIMITER . $this->createHash($this->createHash($source) . $salt);
     }
@@ -93,7 +99,7 @@ class Password implements EncoderInterface, ComparatorInterface
     /**
      * Initialise the hash function
      */
-    protected function initialize()
+    protected function initialize(): void
     {
         if ($this->hashFn) {
             return;
@@ -111,8 +117,9 @@ class Password implements EncoderInterface, ComparatorInterface
      *
      * @param $data
      * @return string
+     * @throws \Throwable
      */
-    protected function createHash($data)
+    protected function createHash($data): string
     {
         $this->initialize();
         switch ($this->hashFn) {
@@ -125,7 +132,7 @@ class Password implements EncoderInterface, ComparatorInterface
             case self::MD5:
                 return md5($data);
             default:
-                throw new RuntimeException("Unknown hash function!");
+                throw RuntimeException::unknownHashFunction();
         }
     }
 }

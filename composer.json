@@ -24,11 +24,12 @@
     }
   },
   "require": {
-    "zendframework/zend-crypt": "^3.3",
-    "msbios/msbios": "^1.0"
+    "laminas/laminas-crypt": "^3.3",
+    "msbios/exception": "^2.0",
+    "msbios/msbios": "^2.0"
   },
   "require-dev": {
-    "msbios/test": "^1.0"
+    "msbios/test": "^2.0"
   },
   "scripts": {
     "cs-check": "phpcs",
@@ -39,5 +40,13 @@
     ],
     "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
     "upload-coverage": "coveralls -v"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laminas": {
+      "component": "MSBios\\Crypt"
+    }
   }
 }
